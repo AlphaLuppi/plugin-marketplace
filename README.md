@@ -2,6 +2,8 @@
 
 Marketplace Claude Code maison. Catalogue interne de plugins (skills, agents, hooks, MCP) packagés pour distribution via `/plugin`.
 
+Repo : <https://github.com/AlphaLuppi/plugin-marketplace>
+
 ## Plugins disponibles
 
 | Plugin | Description |
@@ -11,17 +13,23 @@ Marketplace Claude Code maison. Catalogue interne de plugins (skills, agents, ho
 ## Ajouter ce marketplace dans Claude Code
 
 ```bash
-# depuis un clone local
-/plugin marketplace add ./plugin-marketplace
+# depuis GitHub (recommandé)
+/plugin marketplace add AlphaLuppi/plugin-marketplace
 
-# ou depuis GitHub une fois publié
-/plugin marketplace add <owner>/plugin-marketplace
+# ou depuis un clone local
+/plugin marketplace add ./plugin-marketplace
 ```
 
 Puis installer un plugin :
 
 ```bash
 /plugin install loom-monitoring@alphaluppi-plugins
+```
+
+Mettre à jour le marketplace plus tard :
+
+```bash
+/plugin marketplace update alphaluppi-plugins
 ```
 
 ## Structure du repo

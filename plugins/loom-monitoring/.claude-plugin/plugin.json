@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "loom-monitoring",
+  "version": "0.1.0",
+  "description": "Make any application monitorable by Loom — bring an app, worker, cron, website, or external service into compliance with Loom's health/heartbeat contract so it can be registered as a service and probed automatically.",
+  "author": {
+    "name": "Alpha Luppi",
+    "email": "alphaluppi@gmail.com"
+  },
+  "keywords": ["loom", "monitoring", "health-check", "heartbeat", "uptime", "observability"],
+  "license": "MIT"
+}

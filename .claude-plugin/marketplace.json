@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-marketplace.json",
+  "name": "alphaluppi-plugins",
+  "description": "Plugins maison Alpha Luppi pour Claude Code — skills, agents et outils internes empaquetés pour distribution.",
+  "owner": {
+    "name": "Alpha Luppi",
+    "email": "alphaluppi@gmail.com"
+  },
+  "metadata": {
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "loom-monitoring",
+      "source": "./plugins/loom-monitoring",
+      "description": "Make any application monitorable by Loom — bring an app, worker, cron, website, or external service into compliance with Loom's health/heartbeat contract so it can be registered as a service and probed automatically.",
+      "version": "0.1.0",
+      "category": "observability",
+      "tags": ["loom", "monitoring", "health-check", "heartbeat", "uptime", "observability"],
+      "author": {
+        "name": "Alpha Luppi",
+        "email": "alphaluppi@gmail.com"
+      },
+      "license": "MIT"
+    }
+  ]
+}

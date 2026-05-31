@@ -22,6 +22,22 @@
         "email": "alphaluppi@gmail.com"
       },
       "license": "MIT"
+    },
+    {
+      "name": "llm-wiki",
+      "source": {
+        "source": "github",
+        "repo": "AlphaLuppi/llm-wiki"
+      },
+      "description": "Crée et entretient un wiki Obsidian-compatible piloté par LLM (ingest, query, lint, MOC auto, capture continue).",
+      "version": "1.0.0",
+      "category": "knowledge-management",
+      "tags": ["wiki", "obsidian", "knowledge-base", "ingest", "llm", "moc", "bases", "documentation"],
+      "author": {
+        "name": "Alpha Luppi",
+        "email": "alphaluppi@gmail.com"
+      },
+      "license": "MIT"
     }
   ]
 }

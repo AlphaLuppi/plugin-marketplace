@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "expo-ios-testflight",
+  "version": "1.0.0",
+  "description": "Ship an Expo / React Native iOS app to TestFlight from a local Mac (or CI): build the native app with `eas build --local`, submit it, and promote it to the public external-testing group — plus a battle-tested recipe for verifying RN changes in an iOS simulator before you build. Encodes the fastlane/certificate/rsync build pitfalls, the App Store Connect JWT API (submit, external review, demo account, release notes, rate-limit handling), local↔CI version stamping, and the sandbox-input workarounds (MobAI/idb absent, macOS Accessibility blocked) for driving the Simulator.",
+  "author": {
+    "name": "Alpha Luppi",
+    "email": "alphaluppi@gmail.com"
+  },
+  "keywords": [
+    "expo",
+    "react-native",
+    "ios",
+    "testflight",
+    "eas",
+    "app-store-connect",
+    "fastlane",
+    "xcode",
+    "simulator",
+    "mobile",
+    "ci"
+  ],
+  "license": "MIT"
+}

@@ -8,6 +8,7 @@ Repo : <https://github.com/AlphaLuppi/plugin-marketplace>
 
 | Plugin | Description |
 |---|---|
+| [`expo-ios-testflight`](./plugins/expo-ios-testflight) | Build & ship une app Expo/React Native sur TestFlight en local (`eas build --local`) ou en CI : pièges de build Mac (fastlane, certificat, rsync), API App Store Connect (soumission, review externe, compte démo, notes, rate-limit), stamping de version, + recette de vérification en simulateur iOS. |
 | [`loom-monitoring`](./plugins/loom-monitoring) | Rend n'importe quelle application monitorable par Loom (contrat health/heartbeat, drift `/version.json`, enregistrement MCP). |
 
 ## Ajouter ce marketplace dans Claude Code

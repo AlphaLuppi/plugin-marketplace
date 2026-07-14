@@ -11,6 +11,19 @@
   },
   "plugins": [
     {
+      "name": "expo-ios-testflight",
+      "source": "./plugins/expo-ios-testflight",
+      "description": "Ship an Expo / React Native iOS app to TestFlight from a local Mac (or CI): build with `eas build --local`, submit, and promote to the public external-testing group — encoding the fastlane/certificate/rsync build pitfalls, the App Store Connect JWT API (submit, external review, demo account, release notes, rate-limit), version stamping, and a simulator-verify recipe with the sandbox-input workarounds.",
+      "version": "1.0.0",
+      "category": "mobile",
+      "tags": ["expo", "react-native", "ios", "testflight", "eas", "app-store-connect", "fastlane", "xcode", "simulator", "mobile", "ci"],
+      "author": {
+        "name": "Alpha Luppi",
+        "email": "alphaluppi@gmail.com"
+      },
+      "license": "MIT"
+    },
+    {
       "name": "loom-monitoring",
       "source": "./plugins/loom-monitoring",
       "description": "Make any application monitorable by Loom — bring an app, worker, cron, website, or external service into compliance with Loom's health/heartbeat contract so it can be registered as a service and probed automatically.",

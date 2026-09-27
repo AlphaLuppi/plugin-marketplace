@@ -29,7 +29,34 @@
       "description": "Make any application monitorable by Loom — bring an app, worker, cron, website, or external service into compliance with Loom's health/heartbeat contract so it can be registered as a service and probed automatically.",
       "version": "0.1.0",
       "category": "observability",
-      "tags": ["loom", "monitoring", "health-check", "heartbeat", "uptime", "observability"],
+      "tags": [
+        "loom",
+        "monitoring",
+        "health-check",
+        "heartbeat",
+        "uptime",
+        "observability"
+      ],
+      "author": {
+        "name": "Alpha Luppi",
+        "email": "alphaluppi@gmail.com"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "x-context",
+      "source": "./plugins/x-context",
+      "description": "Read your own X posts and their metrics through the official X API, cached locally, so agents draft new posts from what actually worked for you. MCP server + write-tweet skill. Read-only.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "tags": [
+        "x",
+        "twitter",
+        "tweets",
+        "writing",
+        "social-media",
+        "mcp"
+      ],
       "author": {
         "name": "Alpha Luppi",
         "email": "alphaluppi@gmail.com"

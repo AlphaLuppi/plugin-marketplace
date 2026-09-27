@@ -1,0 +1,94 @@
+{
+  "manifest_version": "0.3",
+  "name": "x-context",
+  "display_name": "X context",
+  "version": "0.0.0",
+  "description": "Your own X posts and their metrics as writing context for Claude. Read-only.",
+  "long_description": "Reads **your own** X posts and their engagement metrics through the official X API and caches them on your machine (`~/.x-context`), so each post is paid for once. Claude can then see how you write, what performs for you relative to your usual engagement, and what you already said, before drafting your next post.\n\nEnter your X API keys below (OAuth 1.0a keys recommended: owned reads cost $0.001 per post). You can also leave them empty and connect later: ask Claude to run **x_connect**, which opens a local page to enter them. This extension never publishes anything.",
+  "author": {
+    "name": "Alpha Luppi",
+    "email": "alphaluppi@gmail.com",
+    "url": "https://github.com/AlphaLuppi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlphaLuppi/plugin-marketplace"
+  },
+  "homepage": "https://github.com/AlphaLuppi/plugin-marketplace/tree/main/plugins/x-context",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.mjs"],
+      "env": {
+        "X_API_KEY": "${user_config.x_api_key}",
+        "X_API_SECRET": "${user_config.x_api_secret}",
+        "X_ACCESS_TOKEN": "${user_config.x_access_token}",
+        "X_ACCESS_TOKEN_SECRET": "${user_config.x_access_token_secret}",
+        "X_BEARER_TOKEN": "${user_config.x_bearer_token}",
+        "X_USERNAME": "${user_config.x_username}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "x_writing_context", "description": "Briefing before drafting: how you write, what performs, top / weakest / recent posts (cache only, free)." },
+    { "name": "x_list_posts", "description": "Search, filter and sort your cached posts (cache only, free)." },
+    { "name": "x_sync", "description": "Fetch your new posts and metrics from the X API (billed per post read, capped)." },
+    { "name": "x_connect", "description": "Open a local page to enter or replace your X API keys, outside the conversation." }
+  ],
+  "tools_generated": false,
+  "keywords": ["x", "twitter", "tweets", "writing", "analytics"],
+  "license": "MIT",
+  "privacy_policies": ["https://x.com/en/privacy"],
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "user_config": {
+    "x_api_key": {
+      "type": "string",
+      "title": "X API Key (consumer key)",
+      "description": "console.x.com → your app → Keys and tokens. Fill the 4 OAuth 1.0a keys for owned reads ($0.001/post) and owner-only metrics. Leave empty to connect later with x_connect.",
+      "required": false,
+      "sensitive": true
+    },
+    "x_api_secret": {
+      "type": "string",
+      "title": "X API Key Secret",
+      "description": "Consumer secret of the same app.",
+      "required": false,
+      "sensitive": true
+    },
+    "x_access_token": {
+      "type": "string",
+      "title": "X Access Token",
+      "description": "Access token generated for YOUR account (the app owner). Read permission is enough.",
+      "required": false,
+      "sensitive": true
+    },
+    "x_access_token_secret": {
+      "type": "string",
+      "title": "X Access Token Secret",
+      "description": "Secret of the access token above.",
+      "required": false,
+      "sensitive": true
+    },
+    "x_username": {
+      "type": "string",
+      "title": "X username",
+      "description": "Your @handle without the @. Only required with a bearer token.",
+      "required": false
+    },
+    "x_bearer_token": {
+      "type": "string",
+      "title": "X Bearer Token (fallback)",
+      "description": "Only if you don't use the 4 OAuth keys: app-only reads, $0.005/post, no owner metrics. Needs the username.",
+      "required": false,
+      "sensitive": true
+    }
+  }
+}

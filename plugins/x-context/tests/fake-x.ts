@@ -33,6 +33,8 @@ export interface FakeX {
   failOn?: { calls: number[]; status: number };
   /** Reject `post.fields` with a 400, like an API still on legacy names. */
   legacyOnly?: boolean;
+  /** Answer 401 to every call, like X does for bad keys. */
+  rejectAuth?: boolean;
 }
 
 /** Minimal in-memory stand-in for the X v2 endpoints the plugin uses. */
@@ -43,6 +45,9 @@ export function fakeX(timeline: RawPost[]): FakeX {
   state.fetch = (async (input: string | URL | Request) => {
     const url = new URL(typeof input === "string" ? input : input instanceof URL ? input.href : input.url);
     state.calls.push(url);
+    if (state.rejectAuth) {
+      return new Response(JSON.stringify({ title: "Unauthorized", detail: "Unauthorized" }), { status: 401 });
+    }
     const json = (status: number, body: unknown) =>
       new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
 

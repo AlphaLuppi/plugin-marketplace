@@ -75,3 +75,31 @@ Retirer l'entrée `x-context` de `marketplace.json` et le dossier `plugins/x-con
 - 31 tests verts (dont e2e : bundle lancé en stdio contre un faux api.x.com local), `tsc` vert, `claude plugin validate` OK sur le plugin et le marketplace.
 - Non vérifié : appel réel à l'API X (pas de clés) et chargement dans une session Claude Code interactive
   (la CLI headless n'était pas authentifiée). Premier test live : `x_sync` avec `dry_run: true`, puis `max_posts: 20`.
+
+---
+
+## v0.2 — Claude Desktop (2026-09-27)
+
+**Problème** : dans Claude Desktop, *Customize > Plugins* n'offre aucun champ pour `userConfig`.
+D'après « Plugin feature support across platforms » : le **chat** ignore les serveurs MCP locaux des plugins
+(même `.mcpb`), et **Cowork** les charge mais « doesn't prompt for values ». L'élicitation MCP n'est pas fiable
+dans Desktop (issue anthropics/claude-ai-mcp#1046 : appel bloqué 180 s).
+
+**Solution** :
+1. **Extension `.mcpb`** (manifest 0.3, `user_config` sensibles → trousseau OS) packagée depuis le même bundle :
+   double-clic → formulaire d'installation natif → outils disponibles dans le chat Desktop.
+2. **État partagé `~/.x-context/`** (cache + `credentials.json`) par défaut pour toutes les surfaces
+   → un post n'est payé qu'une fois, même entre plugin et extension. Migration auto depuis `${CLAUDE_PLUGIN_DATA}`.
+3. **Outil `x_connect`** : page locale one-shot (127.0.0.1, token aléatoire dans l'URL, contrôle du `Host`,
+   expiration 15 min) pour saisir/remplacer les clés ; validées via `/2/users/me` avant écriture.
+   Couvre Cowork et toute surface sans UI de config. Les secrets ne transitent jamais par la conversation.
+4. Résolution des identifiants : env complet (userConfig / extension) → `credentials.json` → rien.
+5. Config relue à chaque appel d'outil (pas besoin de redémarrer après `x_connect`).
+
+- [x] config + credentials file + migration
+- [x] `x_connect` (page locale) + tests
+- [x] manifest `.mcpb` + script de pack + artefact commité
+- [x] skill, README, version 0.2.0
+
+Résultat v0.2 : 48 tests verts (dont e2e sans clés : migration du cache v0.1 → x_connect → formulaire → x_sync signé), `mcpb validate` + `claude plugin validate` OK.
+Non vérifié : installation réelle du `.mcpb` dans Claude Desktop et appel à la vraie API X.

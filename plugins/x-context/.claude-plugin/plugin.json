@@ -1,19 +1,27 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "x-context",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Read your own X posts and their metrics through the official X API, cached locally, so agents draft new posts from what actually worked for you — and never repeat what you already said. Read-only.",
   "author": {
     "name": "Alpha Luppi",
     "email": "alphaluppi@gmail.com"
   },
-  "keywords": ["x", "twitter", "tweets", "writing", "social-media", "mcp", "analytics"],
+  "keywords": [
+    "x",
+    "twitter",
+    "tweets",
+    "writing",
+    "social-media",
+    "mcp",
+    "analytics"
+  ],
   "license": "MIT",
   "userConfig": {
     "x_api_key": {
       "type": "string",
       "title": "X API Key (consumer key)",
-      "description": "console.x.com → your app → Keys and tokens. With the 3 other OAuth 1.0a keys, reading your own posts is billed as an owned read ($0.001/post) and adds owner-only metrics.",
+      "description": "console.x.com → your app → Keys and tokens. With the 3 other OAuth 1.0a keys, reading your own posts is billed as an owned read ($0.001/post) and adds owner-only metrics. Can stay empty: the x_connect tool opens a local page to enter the keys later.",
       "sensitive": true,
       "default": ""
     },
@@ -54,14 +62,16 @@
     "data_dir": {
       "type": "string",
       "title": "Cache directory (optional)",
-      "description": "Where fetched posts are cached. Empty = the plugin data dir, which is deleted on uninstall unless you pass --keep-data. Set a path to keep posts you already paid for.",
+      "description": "Where fetched posts and keys saved by x_connect live. Empty = ~/.x-context, shared with the Claude Desktop extension so a post is paid for once.",
       "default": ""
     }
   },
   "mcpServers": {
     "x": {
       "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/dist/server.mjs"],
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/dist/server.mjs"
+      ],
       "env": {
         "X_API_KEY": "${user_config.x_api_key}",
         "X_API_SECRET": "${user_config.x_api_secret}",

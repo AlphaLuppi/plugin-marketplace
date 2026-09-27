@@ -14,8 +14,9 @@ The x-context MCP server caches my X posts with their metrics. Reading the cache
    - **"Never synced"** → run `x_sync` with `dry_run: true`, tell me the auth mode and the worst-case cost it prints, and wait for my go before the real `x_sync`. After that, one `x_sync` with `mode: "backfill"` fetches older history if the context feels thin (< 30 original posts).
    - **"stale"** → run `x_sync` (mode `"new"`, default `max_posts`) without asking: it only reads posts newer than the cache, usually a few cents at most. Then reload the context.
    - **Unsettled metrics** mentioned → add `refresh_metrics_days: 7` to that sync.
-   - **Config problems** → stop and tell me exactly which setting is missing (plugin settings: `/plugin` → x-context → configure).
-3. If a sync returns an error (402 = credits/spend cap, 401 = keys, 429 = rate limit), report it verbatim and keep going with the cached data if there is any.
+   - **Missing or incomplete credentials** → call `x_connect`. It opens a local page in my browser where I type my X keys; give me the link it returns and wait until I say it's done, then retry `x_sync` with `dry_run: true`. Never ask me to paste keys in the chat.
+   - **No x-context tools at all** → I'm in a surface where the plugin's local server doesn't run (claude.ai chat, or the desktop app's chat). Tell me to install the Claude Desktop extension `x-context.mcpb` (double-click it; it asks for the keys at install) and stop there.
+3. If a sync returns an error (402 = credits/spend cap, 401 = keys rejected → offer `x_connect`, 429 = rate limit), report it verbatim and keep going with the cached data if there is any.
 
 ## 2. Pin down the brief
 

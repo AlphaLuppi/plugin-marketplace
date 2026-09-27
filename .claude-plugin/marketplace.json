@@ -16,7 +16,19 @@
       "description": "Ship an Expo / React Native iOS app to TestFlight from a local Mac (or CI): build with `eas build --local`, submit, and promote to the public external-testing group — encoding the fastlane/certificate/rsync build pitfalls, the App Store Connect JWT API (submit, external review, demo account, release notes, rate-limit), version stamping, and a simulator-verify recipe with the sandbox-input workarounds.",
       "version": "1.0.0",
       "category": "mobile",
-      "tags": ["expo", "react-native", "ios", "testflight", "eas", "app-store-connect", "fastlane", "xcode", "simulator", "mobile", "ci"],
+      "tags": [
+        "expo",
+        "react-native",
+        "ios",
+        "testflight",
+        "eas",
+        "app-store-connect",
+        "fastlane",
+        "xcode",
+        "simulator",
+        "mobile",
+        "ci"
+      ],
       "author": {
         "name": "Alpha Luppi",
         "email": "alphaluppi@gmail.com"
@@ -46,8 +58,8 @@
     {
       "name": "x-context",
       "source": "./plugins/x-context",
-      "description": "Read your own X posts and their metrics through the official X API, cached locally, so agents draft new posts from what actually worked for you. MCP server + write-tweet skill. Read-only.",
-      "version": "0.1.0",
+      "description": "Read your own X posts and their metrics through the official X API, cached locally, so agents draft new posts from what actually worked for you. MCP server + write-tweet skill + Claude Desktop extension (.mcpb). Read-only.",
+      "version": "0.2.0",
       "category": "productivity",
       "tags": [
         "x",
@@ -72,7 +84,16 @@
       "description": "Crée et entretient un wiki Obsidian-compatible piloté par LLM (ingest, query, lint, MOC auto, capture continue).",
       "version": "1.0.0",
       "category": "knowledge-management",
-      "tags": ["wiki", "obsidian", "knowledge-base", "ingest", "llm", "moc", "bases", "documentation"],
+      "tags": [
+        "wiki",
+        "obsidian",
+        "knowledge-base",
+        "ingest",
+        "llm",
+        "moc",
+        "bases",
+        "documentation"
+      ],
       "author": {
         "name": "Alpha Luppi",
         "email": "alphaluppi@gmail.com"

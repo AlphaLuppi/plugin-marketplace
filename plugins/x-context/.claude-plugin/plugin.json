@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "x-context",
+  "version": "0.1.0",
+  "description": "Read your own X posts and their metrics through the official X API, cached locally, so agents draft new posts from what actually worked for you — and never repeat what you already said. Read-only.",
+  "author": {
+    "name": "Alpha Luppi",
+    "email": "alphaluppi@gmail.com"
+  },
+  "keywords": ["x", "twitter", "tweets", "writing", "social-media", "mcp", "analytics"],
+  "license": "MIT",
+  "userConfig": {
+    "x_api_key": {
+      "type": "string",
+      "title": "X API Key (consumer key)",
+      "description": "console.x.com → your app → Keys and tokens. With the 3 other OAuth 1.0a keys, reading your own posts is billed as an owned read ($0.001/post) and adds owner-only metrics.",
+      "sensitive": true,
+      "default": ""
+    },
+    "x_api_secret": {
+      "type": "string",
+      "title": "X API Key Secret",
+      "description": "Consumer secret of the same app.",
+      "sensitive": true,
+      "default": ""
+    },
+    "x_access_token": {
+      "type": "string",
+      "title": "X Access Token",
+      "description": "Access token generated for YOUR account (the app owner), Read permission is enough.",
+      "sensitive": true,
+      "default": ""
+    },
+    "x_access_token_secret": {
+      "type": "string",
+      "title": "X Access Token Secret",
+      "description": "Secret of the access token above.",
+      "sensitive": true,
+      "default": ""
+    },
+    "x_bearer_token": {
+      "type": "string",
+      "title": "X Bearer Token (fallback)",
+      "description": "Only if you don't use the four OAuth 1.0a keys. App-only reads cost $0.005/post and have no owner metrics. Requires the username below.",
+      "sensitive": true,
+      "default": ""
+    },
+    "x_username": {
+      "type": "string",
+      "title": "X username",
+      "description": "Your @handle, without the @. Required with a bearer token, optional with OAuth keys.",
+      "default": ""
+    },
+    "data_dir": {
+      "type": "string",
+      "title": "Cache directory (optional)",
+      "description": "Where fetched posts are cached. Empty = the plugin data dir, which is deleted on uninstall unless you pass --keep-data. Set a path to keep posts you already paid for.",
+      "default": ""
+    }
+  },
+  "mcpServers": {
+    "x": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/dist/server.mjs"],
+      "env": {
+        "X_API_KEY": "${user_config.x_api_key}",
+        "X_API_SECRET": "${user_config.x_api_secret}",
+        "X_ACCESS_TOKEN": "${user_config.x_access_token}",
+        "X_ACCESS_TOKEN_SECRET": "${user_config.x_access_token_secret}",
+        "X_BEARER_TOKEN": "${user_config.x_bearer_token}",
+        "X_USERNAME": "${user_config.x_username}",
+        "X_CONTEXT_DATA_DIR": "${user_config.data_dir}",
+        "CLAUDE_PLUGIN_DATA": "${CLAUDE_PLUGIN_DATA}"
+      }
+    }
+  }
+}

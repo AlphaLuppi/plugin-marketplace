@@ -23,6 +23,8 @@ export interface SyncOptions {
 export interface SyncReport {
   user?: string;
   auth: string;
+  /** "env" = host settings (plugin / extension), "file" = saved by x_connect. */
+  source: string;
   mode: SyncOptions["mode"];
   dry_run: boolean;
   posts_read: number;
@@ -57,6 +59,7 @@ export async function runSync(
   const report: SyncReport = {
     user: store.user ? `@${store.user.username}` : config.username ? `@${config.username}` : undefined,
     auth: config.auth.kind,
+    source: config.source,
     mode: opts.mode,
     dry_run: opts.dryRun,
     posts_read: 0,

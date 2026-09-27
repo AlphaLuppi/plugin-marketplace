@@ -1,4 +1,4 @@
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, rename, stat, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { RawPost, XUser } from "./x-client";
 
@@ -75,6 +75,19 @@ export async function saveStore(dataDir: string, store: StoreData): Promise<void
   const tmp = `${target}.${process.pid}.tmp`;
   await writeFile(tmp, JSON.stringify(store), "utf8");
   await rename(tmp, target);
+}
+
+/**
+ * v0.1 kept the cache in the plugin data dir; v0.2 shares ~/.x-context across
+ * surfaces. Copy the old cache once so already-paid posts are not fetched again.
+ */
+export async function migrateLegacyStore(legacyDir: string | undefined, dataDir: string): Promise<boolean> {
+  if (!legacyDir || legacyDir === dataDir) return false;
+  const exists = (p: string) => stat(p).then(() => true, () => false);
+  if (await exists(storePath(dataDir)) || !(await exists(storePath(legacyDir)))) return false;
+  await mkdir(dataDir, { recursive: true });
+  await copyFile(storePath(legacyDir), storePath(dataDir));
+  return true;
 }
 
 /** Snowflake IDs exceed 2^53, so compare them as BigInt. */

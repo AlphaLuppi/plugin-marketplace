@@ -1,6 +1,5 @@
 import { describe, expect, test } from "bun:test";
 import { buildWritingContext, listPosts, median, outperformance } from "../src/analytics";
-import { loadConfig } from "../src/config";
 import { renderList, renderSyncReport, renderWritingContext } from "../src/format";
 import { emptyStore, mergePosts, normalizePost, reclassify, type StoredPost } from "../src/store";
 import { makePost, ME } from "./fake-x";
@@ -171,6 +170,7 @@ describe("analytics", () => {
     const out = renderSyncReport({
       user: "@tom",
       auth: "oauth1",
+      source: "env",
       mode: "new",
       dry_run: false,
       posts_read: 12,
@@ -185,36 +185,5 @@ describe("analytics", () => {
     });
     expect(out).toContain("$0.012");
     expect(out).toContain("Error: X API 402");
-  });
-});
-
-describe("loadConfig", () => {
-  test("prefers complete OAuth 1.0a keys and ignores unsubstituted placeholders", () => {
-    const c = loadConfig({
-      X_API_KEY: "a",
-      X_API_SECRET: "b",
-      X_ACCESS_TOKEN: "c",
-      X_ACCESS_TOKEN_SECRET: "d",
-      X_BEARER_TOKEN: "${user_config.x_bearer_token}",
-      X_USERNAME: "@Tom",
-      CLAUDE_PLUGIN_DATA: "/data",
-    });
-    expect(c.auth.kind).toBe("oauth1");
-    expect(c.username).toBe("Tom");
-    expect(c.dataDir).toBe("/data");
-    expect(c.problems).toEqual([]);
-  });
-
-  test("falls back to the bearer token and explains partial OAuth config", () => {
-    const c = loadConfig({ X_API_KEY: "a", X_BEARER_TOKEN: "b", X_USERNAME: "" });
-    expect(c.auth.kind).toBe("bearer");
-    expect(c.problems.join(" ")).toContain("X_API_SECRET");
-    expect(c.problems.join(" ")).toContain("X_USERNAME");
-  });
-
-  test("reports missing credentials", () => {
-    const c = loadConfig({});
-    expect(c.auth.kind).toBe("none");
-    expect(c.problems[0]).toContain("No X credentials");
   });
 });

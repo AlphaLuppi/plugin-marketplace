@@ -7,6 +7,7 @@ import { fakeX, makePost, ME } from "./fake-x";
 
 const oauthConfig: Config = {
   auth: { kind: "oauth1", consumerKey: "k", consumerSecret: "s", token: "t", tokenSecret: "ts" },
+  source: "env",
   dataDir: "unused",
   apiBase: "https://api.x.com",
   timezone: "UTC",

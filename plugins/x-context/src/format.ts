@@ -145,7 +145,7 @@ export function renderList(
 
 export function renderSyncReport(r: SyncReport): string {
   const lines = [
-    `${r.dry_run ? "Dry run" : r.error ? "Sync stopped" : "Sync done"} for ${r.user ?? "(account not resolved yet)"} (auth: ${r.auth}, mode: ${r.mode}).`,
+    `${r.dry_run ? "Dry run" : r.error ? "Sync stopped" : "Sync done"} for ${r.user ?? "(account not resolved yet)"} (auth: ${r.auth}${r.source === "file" ? " via keys saved by x_connect" : r.source === "env" ? " via host settings" : ""}, mode: ${r.mode}).`,
     `Posts read from the API: ${r.posts_read} (${r.added} new, ${r.updated} refreshed) · estimated cost $${r.est_cost_usd.toFixed(3)}.`,
     `Cache: ${r.total_cached} posts · ${r.gaps_remaining} unfetched gap(s) · ` +
       (r.reached_timeline_start ? "full available history fetched." : "older history available via mode \"backfill\"."),

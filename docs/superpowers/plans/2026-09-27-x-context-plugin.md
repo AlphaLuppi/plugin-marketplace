@@ -1,6 +1,6 @@
 # Plan — plugin `x-context` (mes tweets comme contexte d'écriture)
 
-Date : 2026-09-27 · Statut : en cours
+Date : 2026-09-27 · Statut : livré (v0.1.0) — reste la validation live avec les vraies clés
 
 ## Objectif
 
@@ -38,20 +38,20 @@ plugins/x-context/
 - **Cache** : `${CLAUDE_PLUGIN_DATA}/tweets.json` (écriture atomique tmp + rename). Retweets exclus.
 - **Outils MCP** :
   - `x_sync` — incrémental (`since_id`), `backfill` (`until_id`), `refresh_metrics_days`, plafond `max_posts`, `dry_run`, coût estimé.
-  - `x_list_tweets` — filtre/tri/recherche dans le cache (recent, engagement, impressions, taux).
+  - `x_list_posts` — filtre/tri/recherche dans le cache (recent, engagement, impressions, taux).
   - `x_writing_context` — pack prêt à l'emploi : stats de perf (format, longueur, heure, jour), top posts, posts récents.
 
 ## Étapes
 
 - [x] 1. Recherche : format plugin (`userConfig`, `${CLAUDE_PLUGIN_DATA}`), spec OpenAPI X, pricing
-- [ ] 2. Scaffold package (TS, esbuild, bun test, MCP SDK 1.30, zod 4)
-- [ ] 3. `oauth1.ts` + test vecteur officiel de signature
-- [ ] 4. `x-client.ts` : auth, pagination, erreurs (401/402/403/429), fallback legacy fields
-- [ ] 5. `store.ts` + `sync.ts` (tests avec fetch mocké)
-- [ ] 6. `analytics.ts` + `format.ts` (tests)
-- [ ] 7. `server.ts` MCP + bundle + smoke test stdio (initialize, tools/list, tools/call sur fixture)
-- [ ] 8. Skill `write-tweet` + manifest + entrée marketplace + README
-- [ ] 9. `claude plugin validate`, commits atomiques, push
+- [x] 2. Scaffold package (TS, esbuild, bun test, MCP SDK 1.30, zod 4)
+- [x] 3. `oauth1.ts` + test vecteur officiel de signature
+- [x] 4. `x-client.ts` : auth, pagination, erreurs (401/402/403/429), fallback legacy fields
+- [x] 5. `store.ts` + `sync.ts` (tests avec fetch mocké)
+- [x] 6. `analytics.ts` + `format.ts` (tests)
+- [x] 7. `server.ts` MCP + bundle + smoke test stdio (initialize, tools/list, tools/call sur fixture)
+- [x] 8. Skill `write-tweet` + manifest + entrée marketplace + README
+- [x] 9. `claude plugin validate`, commits atomiques, push
 
 ## Critères d'acceptation
 
@@ -69,3 +69,9 @@ plugins/x-context/
 ## Rollback
 
 Retirer l'entrée `x-context` de `marketplace.json` et le dossier `plugins/x-context`.
+
+## Résultat (2026-09-27)
+
+- 31 tests verts (dont e2e : bundle lancé en stdio contre un faux api.x.com local), `tsc` vert, `claude plugin validate` OK sur le plugin et le marketplace.
+- Non vérifié : appel réel à l'API X (pas de clés) et chargement dans une session Claude Code interactive
+  (la CLI headless n'était pas authentifiée). Premier test live : `x_sync` avec `dry_run: true`, puis `max_posts: 20`.
